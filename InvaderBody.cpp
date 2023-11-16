@@ -1,14 +1,9 @@
-// Invader.cpp
 #include "InvaderBody.h"
-#include "Arduino_GigaDisplay_GFX.h"
-#include "constants.h"
 
-InvaderBody::InvaderBody()
-  : cnv(GEO_INV_GRID_DIM * GEO_PIXEL_SIZE * 2, GEO_INV_GRID_DIM * GEO_PIXEL_SIZE * 2) {
-  generatePattern();
-  generateBitmap();
-  bufferCopy = new uint8_t[GEO_INV_GRID_DIM * GEO_PIXEL_SIZE * 2 * GEO_INV_GRID_DIM * GEO_PIXEL_SIZE * 2 / 8]; // 1 bit buffer
-  updateBufferCopy();
+InvaderBody::InvaderBody() : ProceduralDrawingItem(GEO_INV_GRID_DIM, GEO_INV_GRID_DIM, 2) {
+    generatePattern();
+    generateBitmap();
+    updateBufferCopy();
 }
 
 void InvaderBody::generatePattern() {
@@ -62,7 +57,7 @@ void InvaderBody::generateBitmap() {
         if (sourceGrid[isMirrored ? GEO_INV_GRID_DIM - i - 1 : i][j]) {
           int xPos = topLeftX + (isMirrored ? i : i - GEO_INV_GRID_DIM) * GEO_PIXEL_SIZE;
           int yPos = topLeftY + j * GEO_PIXEL_SIZE - GEO_INV_GRID_DIM / 2 * GEO_PIXEL_SIZE;
-          cnv.fillRect(xPos, yPos, GEO_PIXEL_SIZE, GEO_PIXEL_SIZE, COL_GREEN);
+          cnv.fillRect(xPos, yPos, GEO_PIXEL_SIZE, GEO_PIXEL_SIZE, COL_WHITE);
         }
       }
     }

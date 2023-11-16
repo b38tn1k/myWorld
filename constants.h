@@ -13,7 +13,8 @@
 #define COL_YELLOW 0xFFE0
 
 // GEOMETRY
-#define GEO_PIXEL_SIZE 10
+#define GEO_PIXEL_SIZE 5
 #define GEO_INV_GRID_DIM 8
-
+#define GEO_DISPLAY_WIDTH 800
+#define GEO_DISPLAY_HEIGHT 480
 #endif

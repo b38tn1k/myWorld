@@ -1,11 +1,11 @@
-#ifndef InvaderBody_h
-#define InvaderBody_h
+#ifndef Landscape_h
+#define Landscape_h
 
 #include "ProceduralDrawingItem.h"
 
-class InvaderBody : public ProceduralDrawingItem {
+class Landscape : public ProceduralDrawingItem {
 public:
-    InvaderBody();
+    Landscape();
     void generatePattern() override;
     void generateBitmap() override;
 };
