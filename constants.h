@@ -11,6 +11,8 @@
 #define COL_WHITE 0xffff
 #define COL_BLACK 0x0000
 #define COL_YELLOW 0xFFE0
+#define COL_DARK_GREY 0x8410
+
 
 // GEOMETRY
 #define GEO_PIXEL_SIZE 5

@@ -7,7 +7,7 @@ GigaDisplay_GFX display;
 const int numInvaders = 5;
 const uint16_t colorArray[] = {COL_CYAN, COL_RED, COL_BLUE, COL_GREEN, COL_MAGENTA, COL_WHITE, COL_BLACK, COL_YELLOW};
 InvaderBody* invaders[numInvaders];
-Landscape ls;
+Landscape *ls;
 int spacing = GEO_DISPLAY_WIDTH / (numInvaders + 1);
 
 unsigned long previousMillis = -1000;
@@ -23,16 +23,11 @@ void setup() {
   display.begin();
   display.fillScreen(COL_BLACK);
   display.setRotation(1);
-  ls = Landscape();
+  ls = new Landscape();
   
   // Initialize the invaders
   for (int i = 0; i < numInvaders; ++i) {
     invaders[i] = new InvaderBody();
-    invaders[i]->logSourceGrid();
-  }
-
-  for (int i = 0; i < numInvaders; ++i) {
-    invaders[i]->logSourceGrid();
   }
 }
 
@@ -41,6 +36,7 @@ void loop() {
 }
 
 void draw() {
+  // display.drawBitmap(0, 0, ls->getBufferCopy(), ls->width, ls->height, COL_DARK_GREY, COL_BLACK);
   for (int i = 0; i < numInvaders; ++i) {
     int x = spacing * (i + 1);
     int y = 240 + 50 * sin((millis() / 1000.0) + (x * 0.01)); // Phase depends on x position
