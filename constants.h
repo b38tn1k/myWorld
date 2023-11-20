@@ -2,7 +2,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-// colors
+// COLORS
 #define COL_CYAN 0x07FF
 #define COL_RED 0xf800
 #define COL_BLUE 0x001F
@@ -13,10 +13,14 @@
 #define COL_YELLOW 0xFFE0
 #define COL_DARK_GREY 0x8410
 
-
 // GEOMETRY
-#define GEO_PIXEL_SIZE 5
+#define GEO_PIXEL_SIZE 4
 #define GEO_INV_GRID_DIM 8
 #define GEO_DISPLAY_WIDTH 800
 #define GEO_DISPLAY_HEIGHT 480
+
+
+// CONFIG
+#define MOOD_PERIOD_MIN 10000
+#define MOOD_PERIOD_MAX 60000
 #endif

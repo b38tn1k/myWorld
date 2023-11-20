@@ -8,7 +8,7 @@ InvaderBody::InvaderBody() : ProceduralDrawingItem(GEO_INV_GRID_DIM, GEO_INV_GRI
 
 void InvaderBody::generatePattern() {
   float maxVal = 0.0;
-  uint8_t actualInvSize = int(random(5, GEO_INV_GRID_DIM + 1));
+  uint8_t actualInvSize = int(random(5, GEO_INV_GRID_DIM));
   uint8_t delta = GEO_INV_GRID_DIM - actualInvSize;
   float softGrid[GEO_INV_GRID_DIM][GEO_INV_GRID_DIM];
   for (uint8_t i = 0; i < delta; i++) {
