@@ -52,11 +52,5 @@ float Perlin::noise(float x, float y) const {
     n0 = dotGridGradient(x0, y1, x, y);
     n1 = dotGridGradient(x1, y1, x, y);
     ix1 = lerp(n0, n1, sx);
-    // Serial.print(ix0);
-    // Serial.print(" ");
-    // Serial.print(ix1);
-    // Serial.print(" ");
-    // Serial.print(sy);
-    // Serial.println();
     return lerp(ix0, ix1, sy);
 }

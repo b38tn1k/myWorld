@@ -1,4 +1,10 @@
+#include <sys/_stdint.h>
 #include "Invader.h"
+#define IDLE 0
+#define FRIENDLY 1
+#define AGGRO 2
+
+uint16_t moodRing[3] = {0xAFF5, 0xAD7F,  0xFD77};
 
 uint16_t rColor() {
   uint8_t red = random(8, 32);
@@ -20,12 +26,32 @@ void Invader::draw(GigaDisplay_GFX& display) {
   display.drawBitmap(drawX, drawY, body->getBufferCopy(), body->width, body->height, invColor, COL_BLACK);
 }
 
+void Invader::log() {
+  Serial.println(state->getMood());
+}
+
 void Invader::updateState(int id, int numInvaders, InvaderState* states[]) {
-  if (state->moodEnteredZone(0.0, 1.0) == true) {
-    mind->chooseNewDirection();
-    invColor = rColor();
+  updateBehaviour();
+  if (state->moodEnteredZone(-0.5, 0.5) == true) {
+    mind->chooseNewDirection(id, numInvaders, states);
   }
+  // mind->chooseNewDirection(id, numInvaders, states);
   mind->move(*state);
+  invColor = moodRing[behavior];
+}
+
+void Invader::updateBehaviour() {
+  float mood = state->getMood();
+  
+
+  if (mood > friendlyThresh[0] && mood < friendlyThresh[1]) {
+    behavior = FRIENDLY;
+  } else if (mood > aggroThresh[0] && mood < aggroThresh[1]) {
+    behavior = AGGRO;
+  } else {
+    behavior = IDLE;
+  }
+
 }
 
 InvaderState& Invader::getState() {
