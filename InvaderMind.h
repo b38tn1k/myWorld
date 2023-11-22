@@ -8,10 +8,9 @@ class InvaderMind {
 private:
     float direction;
     float oldDirection;
-    float weights[5];
-
 public:
-    InvaderMind(int n);
+    float weights[5];
+    InvaderMind();
     void randomlyChooseDirection();
     void move(InvaderState &s);
     void chooseNewDirection(int id, int numInvaders, InvaderState* states[]);

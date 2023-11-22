@@ -4,7 +4,7 @@ float lerp(float start, float end, float t) {
   return start + t * (end - start);
 }
 
-InvaderMind::InvaderMind(int n)
+InvaderMind::InvaderMind()
   : direction(random(360) * DEG_TO_RAD), oldDirection(random(360) * DEG_TO_RAD) {
   for (int i = 0; i < 5; i++) {
     weights[i] = (TWO_PI * 2 * (random(10000) / 10000.0)) - TWO_PI;

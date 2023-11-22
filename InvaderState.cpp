@@ -5,7 +5,7 @@ InvaderState::InvaderState(float x, float y, int w, int h)
     basePeriod(random(MOOD_PERIOD_MIN, MOOD_PERIOD_MAX)),
     modPeriod(random(MOOD_PERIOD_MIN, MOOD_PERIOD_MAX)),  // Different period for modulation
     phase(TWO_PI * random(100) / 100.0),
-    amplitude(0.3 + random(70) / 100.0) {}
+    amplitude(0.3 + random(70) / 100.0), decisionRate(random(DECISION_RATE_MIN, DECISION_RATE_MAX)) {}
 
 void InvaderState::setPosition(float x, float y) {
   this->x = x;
@@ -13,16 +13,16 @@ void InvaderState::setPosition(float x, float y) {
 }
 
 float InvaderState::getMood() const {
-  unsigned long currentTime = millis() % max(int(basePeriod), int(modPeriod));
-
-  // Calculate the modulation factor
-  float modFactor = amplitude * sin(TWO_PI * currentTime / modPeriod + phase);
-
-  // Modulate the base period with the modulation factor
-  float effectivePeriod = basePeriod * (1 + modFactor);
-
-  // Calculate the final mood value
-  return sin(TWO_PI * currentTime / effectivePeriod);
+  float result = 0.0;
+  if (alive == true) {
+    unsigned long currentTime = millis() % max(int(basePeriod), int(modPeriod));
+    // Calculate the modulation factor
+    float modFactor = amplitude * sin(TWO_PI * currentTime / modPeriod + phase);
+    // Modulate the base period with the modulation factor
+    float effectivePeriod = basePeriod * (1 + modFactor);
+    result = sin(TWO_PI * currentTime / effectivePeriod);
+  }
+  return result;
 }
 
 bool InvaderState::moodEnteredZone(float zoneMin, float zoneMax) {
@@ -37,11 +37,22 @@ bool InvaderState::moodEnteredZone(float zoneMin, float zoneMax) {
   return enteredZone;
 }
 
-float InvaderState::getX() {
+void InvaderState::updateBehaviour() {
+  float mood = getMood();
+  if (mood > friendlyThresh[0] && mood < friendlyThresh[1]) {
+    behavior = MOOD_FRIENDLY;
+  } else if (mood > aggroThresh[0] && mood < aggroThresh[1]) {
+    behavior = MOOD_AGGRO;
+  } else {
+    behavior = MOOD_IDLE;
+  }
+}
+
+float InvaderState::getX() const {
   return x;
 }
 
-float InvaderState::getY() {
+float InvaderState::getY() const {
   return y;
 }
 
@@ -59,4 +70,19 @@ float InvaderState::getInertia() {
 
 void InvaderState::setInertia(float i) {
   inertia = i;
+}
+
+bool InvaderState::isAlive() {
+  return alive;
+}
+
+bool InvaderState::kill() {
+  alive = false;
+}
+
+bool InvaderState::reincarnate(InvaderState* states[]) {
+  x = random(20, GEO_DISPLAY_WIDTH - 20);
+  y = random(20, GEO_DISPLAY_HEIGHT - 20);
+
+  alive = true;
 }
