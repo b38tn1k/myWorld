@@ -93,9 +93,9 @@ void Invader::mutateMind(Invader* p1, Invader* p2) {
 
 void Invader::mutateBody(Invader* p1, Invader* p2) {
   if (random(2) == 1) {
-    state->decisionRate = (int)p1->state->decisionRate * randomFloat(0.9, 1.1);
+    state->decisionRate = (int) p1->state->decisionRate * randomFloat(0.9, 1.1);
   } else {
-    state->decisionRate = (int)p2->state->decisionRate * randomFloat(0.9, 1.1);
+    state->decisionRate = (int) p2->state->decisionRate * randomFloat(0.9, 1.1);
   }
 
   if (random(2) == 1) {
@@ -122,22 +122,23 @@ void Invader::mutateBody(Invader* p1, Invader* p2) {
     state->amplitude = (int)p2->state->amplitude * randomFloat(0.9, 1.1);
   }
 
-  if (random(2) == 1) {
-    state->speed = (int)p1->state->speed * randomFloat(0.9, 1.1);
-  } else {
-    state->speed = (int)p2->state->speed * randomFloat(0.9, 1.1);
-  }
+  // if (random(2) == 1) {
+  //   state->speed = (int)p1->state->speed * randomFloat(0.9, 1.1);
+  // } else {
+  //   state->speed = (int)p2->state->speed * randomFloat(0.9, 1.1);
+  // }
 
-  if (random(2) == 1) {
-    state->inertia = (int)p1->state->inertia * randomFloat(0.9, 1.1);
-  } else {
-    state->inertia = (int)p2->state->inertia * randomFloat(0.9, 1.1);
-  }
+  // if (random(2) == 1) {
+  //   state->inertia = (int)p1->state->inertia * randomFloat(0.9, 1.1);
+  // } else {
+  //   state->inertia = (int)p2->state->inertia * randomFloat(0.9, 1.1);
+  // }
 }
 
 void Invader::kill() {
   counter = 0;
   state->kill();
+  
 }
 
 InvaderState& Invader::getState() {
