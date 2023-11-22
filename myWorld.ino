@@ -45,10 +45,20 @@ void loop() {
 
 void update() {
   bool someoneIsDead = false;
+  int deadCount = 0;
   for (int i = 0; i < numInvaders; ++i) {
     states[i] = &invaders[i]->getState();
     if (states[i]->isAlive() == false) {
       someoneIsDead = true;
+      deadCount += 1;
+    }
+  }
+
+  if (deadCount == numInvaders - 2) {
+    for (int i = 0; i < numInvaders; ++i) {
+      if (states[i]->isAlive() == false) {
+        invaders[i] = new Invader();
+      }
     }
   }
 

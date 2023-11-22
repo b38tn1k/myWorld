@@ -26,20 +26,18 @@ public:
   float friendlyThresh[2] = { 0.5, 1 };
   bool isAlive();
   bool kill();
-  bool reincarnate(InvaderState* states[]);
   int killCount = 0;
-
+  float basePeriod;
+  float modPeriod;
+  float phase;
+  float amplitude;
+  float speed = 0.8;
+  float inertia = 0.2;
 
 private:
   bool alive = true;
   float x, y;
-  float basePeriod;  // Base period for the primary sine wave
-  float modPeriod;   // Period for the modulating sine wave
-  float phase;
-  float amplitude;
   float prevMood = 0.0;
-  float speed = 0.8;
-  float inertia = 0.2;
 };
 
 #endif  // INVADERSTATE_H

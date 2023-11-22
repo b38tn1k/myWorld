@@ -79,10 +79,3 @@ bool InvaderState::isAlive() {
 bool InvaderState::kill() {
   alive = false;
 }
-
-bool InvaderState::reincarnate(InvaderState* states[]) {
-  x = random(20, GEO_DISPLAY_WIDTH - 20);
-  y = random(20, GEO_DISPLAY_HEIGHT - 20);
-
-  alive = true;
-}

@@ -10,6 +10,10 @@ uint16_t rColor() {
   return (red << 11) | (green << 5) | blue;
 }
 
+float randomFloat(float min, float max) {
+  return min + (max - min) * ((float)random(10000) / 10000.0);
+}
+
 Invader::Invader() {
   body = new InvaderBody();
   invColor = rColor();
@@ -76,19 +80,59 @@ int Invader::checkCurrentBehavior() {
   return state->behavior;
 }
 
-void Invader::mutateMind(Invader* p1, Invader* p2){
+void Invader::mutateMind(Invader* p1, Invader* p2) {
   for (int i = 0; i < 5; i++) {
-    if (random(2) >= 1) {
-      mind->weights[i] = p1->mind->weights[i];
+    if (random(2) == 1) {
+      mind->weights[i] = p1->mind->weights[i] * randomFloat(0.9, 1.1);
     } else {
-      mind->weights[i] = p2->mind->weights[i];
+      mind->weights[i] = p2->mind->weights[i] * randomFloat(0.9, 1.1);
     }
   }
 }
 
 
-void Invader::mutateBody(Invader* p1, Invader* p2){
+void Invader::mutateBody(Invader* p1, Invader* p2) {
+  if (random(2) == 1) {
+    state->decisionRate = (int)p1->state->decisionRate * randomFloat(0.9, 1.1);
+  } else {
+    state->decisionRate = (int)p2->state->decisionRate * randomFloat(0.9, 1.1);
+  }
 
+  if (random(2) == 1) {
+    state->basePeriod = p1->state->basePeriod * randomFloat(0.9, 1.1);
+  } else {
+    state->basePeriod = p2->state->basePeriod * randomFloat(0.9, 1.1);
+  }
+
+  if (random(2) == 1) {
+    state->modPeriod = p1->state->modPeriod * randomFloat(0.9, 1.1);
+  } else {
+    state->modPeriod = p2->state->modPeriod * randomFloat(0.9, 1.1);
+  }
+
+  if (random(2) == 1) {
+    state->phase = (int)p1->state->phase * randomFloat(0.9, 1.1);
+  } else {
+    state->phase = (int)p2->state->phase * randomFloat(0.9, 1.1);
+  }
+
+  if (random(2) == 1) {
+    state->amplitude = (int)p1->state->amplitude * randomFloat(0.9, 1.1);
+  } else {
+    state->amplitude = (int)p2->state->amplitude * randomFloat(0.9, 1.1);
+  }
+
+  if (random(2) == 1) {
+    state->speed = (int)p1->state->speed * randomFloat(0.9, 1.1);
+  } else {
+    state->speed = (int)p2->state->speed * randomFloat(0.9, 1.1);
+  }
+
+  if (random(2) == 1) {
+    state->inertia = (int)p1->state->inertia * randomFloat(0.9, 1.1);
+  } else {
+    state->inertia = (int)p2->state->inertia * randomFloat(0.9, 1.1);
+  }
 }
 
 void Invader::kill() {
